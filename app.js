@@ -8,7 +8,6 @@ var client_secret = ""; // In a real app you should not expose your client_secre
 var access_token = null;
 var refresh_token = null;
 var currentPlaylist = "";
-var radioButtons = [];
 
 const AUTHORIZE = "https://accounts.spotify.com/authorize"
 const TOKEN = "https://accounts.spotify.com/api/token";
@@ -43,7 +42,6 @@ function onPageLoad(){
             currentlyPlaying();
         }
     }
-    refreshRadioButtons();
 }
 
 function handleRedirect(){
@@ -132,7 +130,7 @@ function handleDevicesResponse(){
     if ( this.status == 200 ){
         var data = JSON.parse(this.responseText);
         console.log(data);
-        removeAllItems( "devices" );
+        // removeAllItems( "devices" );
         data.devices.forEach(item => addDevice(item));
     }
     else if ( this.status == 401 ){
@@ -167,7 +165,7 @@ function handlePlaylistsResponse(){
     if ( this.status == 200 ){
         var data = JSON.parse(this.responseText);
         console.log(data);
-        removeAllItems( "playlists" );
+        // removeAllItems( "playlists" );
         data.items.forEach(item => addPlaylist(item));
         document.getElementById('playlists').value=currentPlaylist;
     }
@@ -186,19 +184,18 @@ function addPlaylist(item){
     node.innerHTML = item.name + " (" + item.tracks.total + ")";
     document.getElementById("playlists").appendChild(node); 
 }
-
-function removeAllItems( elementId ){
+function removeAllItems(elementId){
     let node = document.getElementById(elementId);
     while (node.firstChild) {
         node.removeChild(node.firstChild);
     }
 }
-
 const play = () =>{
     currentlyPlaying()
     let playlist_id = document.getElementById("playlists").value;
     let trackindex = document.getElementById("tracks").value;
     let album = document.getElementById("album").value;
+    let textBotonPlay = document.getElementById('play')
     let body = {};
     if ( album.length > 0 ){
         body.context_uri = album;
@@ -209,6 +206,8 @@ const play = () =>{
     body.offset = {};
     body.offset.position = trackindex.length > 0 ? Number(trackindex) : 0;
     body.offset.position_ms = 0;
+        textBotonPlay.textContent = 'pause'
+        textBotonPlay.setAttribute('onclick', 'pause()')
     callApi( "PUT", PLAY + "?device_id=" + deviceId(), JSON.stringify(body), handleApiResponse );
 }
 
@@ -219,6 +218,9 @@ const shuffle = () =>{
 }
 
 const pause = () =>{
+    let textBotonPlay = document.getElementById('play')
+    textBotonPlay.textContent = 'play_arrow'
+    textBotonPlay.setAttribute('onclick', 'play()')
     callApi( "PUT", PAUSE + "?device_id=" + deviceId(), null, handleApiResponse );
 }
 
@@ -272,7 +274,7 @@ function handleTracksResponse(){
     if ( this.status == 200 ){
         var data = JSON.parse(this.responseText);
         console.log(data);
-        removeAllItems( "tracks" );
+        // removeAllItems( "tracks" );
         data.items.forEach( (item, index) => addTrack(item, index));
     }
     else if ( this.status == 401 ){
@@ -326,42 +328,4 @@ function handleCurrentlyPlayingResponse(){
         console.log(this.responseText);
         alert(this.responseText);
     }
-}
-
-function saveNewRadioButton(){
-    let item = {};
-    item.deviceId = deviceId();
-    item.playlistId = document.getElementById("playlists").value;
-    radioButtons.push(item);
-    localStorage.setItem("radio_button", JSON.stringify(radioButtons));
-    refreshRadioButtons();
-}
-
-function refreshRadioButtons(){
-    let data = localStorage.getItem("radio_button");
-    if ( data != null){
-        radioButtons = JSON.parse(data);
-        if ( Array.isArray(radioButtons) ){++
-            removeAllItems("radioButtons");
-            radioButtons.forEach( (item, index) => addRadioButton(item, index));
-        }
-    }
-}
-
-function onRadioButton( deviceId, playlistId ){
-    let body = {};
-    body.context_uri = "spotify:playlist:" + playlistId;
-    body.offset = {};
-    body.offset.position = 0;
-    body.offset.position_ms = 0;
-    callApi( "PUT", PLAY + "?device_id=" + deviceId, JSON.stringify(body), handleApiResponse );
-    callApi( "PUT", SHUFFLE + "?state=true&device_id=" + deviceId, null, handleApiResponse );
-}
-
-function addRadioButton(item, index){
-    let node = document.createElement("button");
-    node.className = "btn btn-primary m-2";
-    node.innerText = index;
-    node.onclick = function() { onRadioButton( item.deviceId, item.playlistId ) };
-    document.getElementById("radioButtons").appendChild(node);
 }
