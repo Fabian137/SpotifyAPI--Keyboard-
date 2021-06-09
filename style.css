@@ -6,13 +6,20 @@
 --salmon: #e9806eff;
 */
 
-body{background-color: #212529;}
+body{
+    background-color: #212529;
+    margin:0;
+}
 #tokenSection{display: none;}
 #deviceSection{display: none;}
 .container{padding: 20px;}
 #albumImage{
     width: 35%;
     margin: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 4px 0 rgba(250, 249, 249, 0.233),
+  0 3px 1px -2px rgba(255, 255, 255, 0.116),
+  0 1px 5px 0 rgba(255, 255, 255, 0.219);
 }
 .material-icons{
     width: 8rem;
@@ -28,11 +35,6 @@ body{background-color: #212529;}
 /* Piano */
 * {
     box-sizing:border-box
-  }
-  
-  body {
-    margin:0;
-    background:rgb(224, 224, 224);
   }
   li {
     margin:0;
