@@ -331,7 +331,7 @@ function handleCurrentlyPlayingResponse(){
 }
 
 
-
+/*
 var Sonidos= [65, 69,73, 77, 82, 87, 92, 97, 103, 110, 116, 123, 261,277,293,311,329,349,369,392,415,440,466,493];
 var context = new (window.AudioContext || window.webkitAudioContext)();
 function Sonido(nota){
@@ -342,7 +342,7 @@ function Sonido(nota){
   osc.start();
   osc.stop(context.currentTime + .35);
 }
-/*-----Styles | tecla presionada -----*/
+Styles | tecla presionada 
 var do3 = document.getElementById('do3')
 var doh3 = document.getElementById('do#3')
 var re3 = document.getElementById('re3')
@@ -499,4 +499,4 @@ function myFunction(event) {
     Sonido(23)
   }
     setTimeout(function(){si4.setAttribute('class', 'white c')}, 250);
-}
+}*/

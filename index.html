@@ -11,7 +11,7 @@
     <script src="app.js"></script>
 </head>
 
-<body onload="onPageLoad()">
+<body onload="onPageLoad()" onkeydown="myFunction(event)">
     <section class="container">
 
         <div id="tokenSection" class="row">
@@ -51,14 +51,15 @@
                     <input type="button" class="btn btn-dark btn-sm  mt-3" onclick="transfer()" value="Transfer">
                 </div>
                 
-                
-                <section>
-                    <div class="row  mt-3">
-                        <div class="col">
-                            <h1> Currently Playing</h1>
-                            <input type="button" class="btn btn-primary btn-sm mt-3" onclick="currentlyPlaying()" value="Refresh Currently Playing">
-                        </div>
+                <div style="color:white;" id="trackTitle"></div>
+                <div style="color:white;" id="trackArtist"></div>
+                <div class="row  mt-3">
+                    <div class="col">
+                        <input type="button" class="btn btn-primary btn-sm mt-3" onclick="currentlyPlaying()" value="Refresh Currently Playing">
                     </div>
+                </div>
+                <section>
+                    
                     <div style="display: flex; flex-direction: column;align-items: center;">
                         <img id="albumImage" src="">
                         <div>
@@ -72,10 +73,13 @@
                         <input type="button" class="btn btn-dark" onclick="pause()" value="Pause">
                         <input type="button" class="btn btn-dark" onclick="next()" value="Next"> -->
                     </div>
-                        <div style="color:white;" id="trackTitle"></div>
-                        <div style="color:white;" id="trackArtist"></div>
+                        
                 </section>
 
+                
+
+
+            <section style="display: flex; justify-content: space-evenly;">
                 <div class="mb-3">
                     <label for="playlists" class="form-label">Playlists</label>
                     <select id="playlists" class="form-control">
@@ -83,24 +87,26 @@
                     <input class="btn btn-primary btn-sm mt-3" type="button" onclick="refreshPlaylists()" value="Refresh Playlists">
 
                 </div>
-
-
-                <div class="mb-3">
-                    <label for="tracks" class="form-label">Tracks</label>
-                    <select id="tracks" class="form-control">
-                    </select>
+                    <div class="mb-3">
+                        <label for="tracks" class="form-label">Tracks</label>
+                        <select id="tracks" class="form-control">
+                        </select>
                     <input class="btn btn-primary btn-sm mt-3" type="button" onclick="fetchTracks()" value="Fetch Tracks">
                 </div>
-                <div class="mb-3">
-                    <label for="tracks" class="form-label">Album</label>
-                    <input id="album" class="form-control">
-                </div>
+                
+            </section>
+            <div class="mb-3">
+                <label for="tracks" class="form-label">Album</label>
+                <input style="    background-color: transparent;border-color: transparent;" id="album" class="form-control">
+            </div>
             </div>
         </div>
     </section>
+
+
+    <!--onkeydown="myFunction(event)"-->
     <section style="display: flex; justify-content: center; align-items: center; height: 80vh;">
-        <div style=""></div>
-        <ul><!--class="set"-->
+        <ul>
             <!-- OCTAVA 3 -->
             <li class="white b" id="do3"></li>
             <li class="black as" id="do#3"></li>

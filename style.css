@@ -85,7 +85,6 @@ ul .whitePres{
   box-shadow:-1px -1px 2px rgba(255,255,255,0.2) inset,0 -2px 2px 3px rgba(0,0,0,0.6) inset,0 1px 2px rgba(0,0,0,0.5);
   background: linear-gradient(45deg,#fff 0%,#fefafa 100%);
 }
-  
   .a,.g,.f,.d,.c {
     margin:0 0 0 -1em
   }
@@ -96,4 +95,7 @@ ul .whitePres{
   
   ul li:last-child {
     border-radius:0 5px 5px 5px
+  }
+  .form-control{
+      width: 15rem;
   }
